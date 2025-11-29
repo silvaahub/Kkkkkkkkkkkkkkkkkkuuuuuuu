@@ -1,0 +1,2552 @@
+-- Bazuka as Were
+
+
+local v1 = game.CoreGui:FindFirstChild("LoadingScreen")
+if v1 then
+    v1:Destroy()
+end
+(function()
+    local vu2 = game:GetService("ReplicatedStorage"):FindFirstChild("RE")
+    if vu2 then
+        local function v6(p3, pu4)
+            local vu5 = vu2:FindFirstChild(p3)
+            if vu5 then
+                pcall(function()
+                    vu5:FireServer(unpack(pu4))
+                end)
+            end
+        end
+        v6("1RPNam1eTex1t", {
+            "RolePlayName",
+            "user Hunter hub"
+        })
+        v6("1RPNam1eColo1r", {
+            "PickingRPNameColor",
+            Color3.fromRGB(18, 10, 143)
+        })
+        v6("1RPNam1eTex1t", {
+            "RolePlayBio",
+            "Hunter hub"
+        })
+        v6("1RPNam1eColo1r", {
+            "PickingRPBioColor",
+            Color3.fromRGB(0, 255, 0)
+        })
+    end
+end)()
+local v7 = loadstring(game:HttpGet(https://raw.githubusercontent.com/silvaahub/Kkkkkkkkkkkkkkkkkkuuuuuuu/refs/heads/main/sem%20t%C3%ADtulo.txt"))()
+    Title = "Hunter hub v1",
+    SubTitle = "By: silvadeV & gonerdev",
+    SaveFolder = "hunterhub",
+    Theme = {
+        Background = Color3.fromRGB(20, 20, 20),
+        Primary = Color3.fromRGB(0, 136, 255),
+        Secondary = Color3.fromRGB(30, 30, 30),
+        Accent = Color3.fromRGB(255, 80, 80),
+        Text = Color3.fromRGB(255, 255, 255)
+    }
+})
+v7:AddMinimizeButton({
+    Button = {
+        Image = "rbxassetid://139540783056813",
+        BackgroundTransparency = 0
+    },
+    Corner = {
+        CornerRadius = UDim.new(0, 1000)
+    }
+})
+local v8 = v7:MakeTab({
+    "Menu",
+    "rbxassetid://138700382840270"
+})
+v8:AddSection("Informa\195\167\195\181es do Hub")
+v8:AddDiscordInvite({
+    Name = "Hunter hub  - ",
+    Description = "https://discord.gg/MZ2xWErCuS",
+    Logo = "rbxassetid://139540783056813",
+    Invite = "https://discord.gg/MZ2xWErCuS"
+})
+v8:AddParagraph({
+    "Founders",
+    "Silva dev & goner"
+})
+v8:AddParagraph({
+    "Developers",
+    "silvadev & gonerdev"
+})
+v8:AddParagraph({
+    "INFORMACAO:",
+    "Na versao 2.2.0.2 ira ter mais coisas.."
+})
+local v9 = v7:MakeTab({
+    "Troll",
+    "rbxassetid://10734934585"
+})
+v9:AddSection({
+    "Tp & View"
+})
+local vu10 = game:GetService("Players")
+local vu11 = game:GetService("TweenService")
+local vu12 = vu10.LocalPlayer
+local vu13 = workspace.CurrentCamera
+local v14 = game:GetService("RunService")
+local vu15 = false
+local vu16 = nil
+local vu17 = nil
+v9:AddTextBox({
+    Name = "Selecione jogador",
+    Description = "Selecionar Jogador",
+    PlaceholderText = "Digite parte do nome",
+    ClearTextOnFocus = false,
+    Callback = function(p18)
+        if typeof(p18) == "string" and # p18 > 0 then
+            local v19 = vu10
+            local v20, v21, v22 = pairs(v19:GetPlayers())
+            local v23 = nil
+            while true do
+                local v24
+                v22, v24 = v20(v21, v22)
+                if v22 == nil then
+                    v24 = v23
+                    break
+                end
+                if v24 ~= vu12 and (v24.Name:lower():sub(1, # p18) == p18:lower() or v24.DisplayName:lower():sub(1, # p18) == p18:lower()) then
+                    break
+                end
+            end
+            if v24 then
+                getgenv().Target = v24.Name
+                print("[INFO] Alvo definido: " .. v24.Name)
+                if vu15 then
+                    setViewTarget(v24.Name)
+                end
+            else
+                warn("[ERRO] Nenhum jogador encontrado com: " .. p18)
+            end
+        end
+    end
+})
+local function vu25()
+    if vu12.Character or vu12.CharacterAdded:Wait() then
+        vu13.CameraSubject = vu12.Character
+    end
+end
+local function vu29(p26)
+    local v27 = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local v28 = p26.CFrame + p26.CFrame.LookVector * - 10 + Vector3.new(0, 5, 0)
+    vu11:Create(vu13, v27, {
+        CFrame = CFrame.new(v28.Position, p26.Position)
+    }):Play()
+end
+function setViewTarget(p30)
+    local vu31 = vu10:FindFirstChild(p30)
+    if vu31 then
+        vu16 = vu31
+        if vu17 then
+            vu17:Disconnect()
+        end
+        vu17 = vu31.CharacterAdded:Connect(function(pu32)
+            task.wait(0.1)
+            local v33 = vu15 and (vu16 == vu31 and pu32:FindFirstChild("HumanoidRootPart"))
+            if v33 then
+                vu29(v33)
+                pcall(function()
+                    vu13.CameraSubject = pu32
+                end)
+            end
+        end)
+        local v34 = vu31.Character and vu31.Character:FindFirstChild("HumanoidRootPart")
+        if v34 then
+            vu29(v34)
+            pcall(function()
+                vu13.CameraSubject = vu31.Character
+            end)
+        end
+    else
+        warn("[VIEW] Jogador n\195\163o encontrado.")
+    end
+end
+function stopViewing()
+    vu15 = false
+    vu16 = nil
+    if vu17 then
+        vu17:Disconnect()
+        vu17 = nil
+    end
+    vu25()
+end
+v14.RenderStepped:Connect(function()
+    if vu15 and vu16 then
+        if not vu16:IsDescendantOf(game) then
+            stopViewing()
+            return
+        end
+        if vu16.Character and vu13.CameraSubject ~= vu16.Character then
+            pcall(function()
+                vu13.CameraSubject = vu16.Character
+            end)
+        end
+    end
+end)
+v9:AddToggle({
+    Name = "View",
+    Default = false,
+    Callback = function(p35)
+        vu15 = p35
+        if p35 and getgenv().Target then
+            setViewTarget(getgenv().Target)
+        else
+            stopViewing()
+        end
+    end
+})
+v9:AddButton({
+    Name = "Goto",
+    Callback = function()
+        local v41, v42 = pcall(function()
+            local v36 = (vu12.Character or vu12.CharacterAdded:Wait()):FindFirstChild("HumanoidRootPart")
+            if v36 then
+                local v37 = getgenv().Target
+                if v37 then
+                    local v38 = vu10:FindFirstChild(v37)
+                    if v38 and v38.Character then
+                        local v39 = v38.Character:FindFirstChild("HumanoidRootPart")
+                        if v39 then
+                            local v40 = {
+                                CFrame = v39.CFrame + Vector3.new(2, 0, 2)
+                            }
+                            vu11:Create(v36, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), v40):Play()
+                        else
+                            warn("[GOTO] Alvo sem HumanoidRootPart.")
+                        end
+                    else
+                        warn("[GOTO] Alvo inv\195\161lido ou n\195\163o encontrado.")
+                        return
+                    end
+                else
+                    warn("[GOTO] Nenhum alvo definido.")
+                    return
+                end
+            else
+                return
+            end
+        end)
+        if not v41 then
+            warn("[GOTO] Erro ao teleportar:", v42)
+        end
+    end
+})
+local vu43 = nil
+v9:AddToggle({
+    Name = "LoopGoto",
+    Default = false,
+    Callback = function(p44)
+        if p44 then
+            vu43 = game:GetService("RunService").Stepped:Connect(function()
+                local v45 = vu10:FindFirstChild(getgenv().Target)
+                if v45 and v45.Character and v45.Character:FindFirstChild("HumanoidRootPart") then
+                    local v46 = vu12.Character
+                    if v46 and v46:FindFirstChild("HumanoidRootPart") then
+                        v46.HumanoidRootPart.CFrame = v45.Character.HumanoidRootPart.CFrame + Vector3.new(2, 0, 2)
+                    end
+                end
+            end)
+        elseif vu43 then
+            vu43:Disconnect()
+            vu43 = nil
+        end
+    end
+})
+v9:AddSection({
+    "Menu Kill"
+})
+local vu47 = game:GetService("Players")
+local vu48 = vu47.LocalPlayer
+local v49 = vu48
+local vu50 = vu48.FindFirstChild(v49, "Backpack")
+getgenv().Target = nil
+getgenv().OldPos = nil
+local function vu57(p51)
+    local v52 = p51:lower()
+    local v53 = next
+    local v54, v55 = vu47:GetPlayers()
+    while true do
+        local v56
+        v55, v56 = v53(v54, v55)
+        if v55 == nil then
+            break
+        end
+        if v56 ~= vu48 and (v56.Name:lower():match("^" .. v52) or v56.DisplayName:lower():match("^" .. v52)) then
+            return v56
+        end
+    end
+    return nil
+end
+local function vu59()
+    if vu50 then
+        local v58 = vu50:FindFirstChild("Couch")
+        if v58 and not vu48.Character:FindFirstChild("Couch") then
+            vu48.Character.Humanoid:EquipTool(v58)
+        end
+    end
+end
+local function vu61()
+    if vu48.Character then
+        local v60 = vu48.Character:FindFirstChildOfClass("Tool")
+        if v60 and v60.Name == "Couch" then
+            v60.Parent = vu50
+        end
+    end
+end
+local function vu67()
+    local v62 = game.Players.LocalPlayer
+    local v63 = v62.Character or v62.CharacterAdded:Wait()
+    local v64 = v63:FindFirstChild("HumanoidRootPart")
+    local v65 = v63:FindFirstChildOfClass("Humanoid")
+    if v64 and v65 then
+        local v66 = Vector3.new(1118.81, 75.998, - 1138.61)
+        v65.PlatformStand = true
+        v64.Anchored = true
+        v64.AssemblyLinearVelocity = Vector3.zero
+        v64.AssemblyAngularVelocity = Vector3.zero
+        v64.CFrame = CFrame.new(v66)
+        print("Jogador teleportado para a posi\195\167\195\163o segura.")
+        task.wait(3)
+        v64.Anchored = false
+        v65.PlatformStand = false
+        print("Jogador liberado com seguran\195\167a.")
+    else
+        warn("RootPart ou Humanoid n\195\163o encontrado.")
+    end
+end
+local function vu86(pu68)
+    if pu68 then
+        vu59()
+        local vu69 = vu48.Character
+        local vu70
+        if vu69 then
+            vu70 = vu69:FindFirstChildOfClass("Humanoid")
+        else
+            vu70 = vu69
+        end
+        local vu71
+        if vu70 then
+            vu71 = vu70.RootPart
+        else
+            vu71 = vu70
+        end
+        local vu72 = pu68.Character
+        local v73
+        if vu72 then
+            v73 = vu72:FindFirstChild("HumanoidRootPart")
+        else
+            v73 = vu72
+        end
+        if vu69 and (vu70 and (vu71 and (vu72 and v73))) then
+            if not getgenv().OldPos then
+                getgenv().OldPos = vu71.CFrame
+            end
+            if vu71.Velocity.Magnitude < 50 then
+                getgenv().OldPos = vu71.CFrame
+            end
+            if vu72:FindFirstChildWhichIsA("Seat") then
+                vu61()
+            else
+                local function vu77(p74, p75, p76)
+                    vu71.CFrame = CFrame.new(p74.Position) * p75 * p76
+                    vu69:SetPrimaryPartCFrame(vu71.CFrame)
+                end
+                local function v85(p78)
+                    local v79 = tick()
+                    local v80 = Instance.new("BodyVelocity")
+                    v80.Parent = vu71
+                    v80.Velocity = Vector3.new(1000, 1000, 1000)
+                    v80.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                    vu70:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+                    local v81 = 0
+                    while true do
+                        v81 = v81 + 100
+                        local v82 = pu68.Character:FindFirstChildOfClass("Humanoid")
+                        local v83 = vu72
+                        if v83 then
+                            v83 = vu72:FindFirstChild("HumanoidRootPart")
+                        end
+                        if v82 then
+                            if vu72:FindFirstChildWhichIsA("Seat") then
+                                vu61()
+                                return
+                            end
+                            vu77(p78, CFrame.new(0, 2, 0) + v82.MoveDirection * p78.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(v81), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, - 2, 0) + v82.MoveDirection * p78.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(v81), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(2.5, 2, - 2.5) + v82.MoveDirection * p78.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(v81), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(- 2.5, - 2, 2.5) + v82.MoveDirection * p78.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(v81), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, 2, 0) + v82.MoveDirection, CFrame.Angles(math.rad(v81), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, - 2, 0) + v82.MoveDirection, CFrame.Angles(math.rad(v81), 0, 0))
+                            task.wait()
+                        else
+                            vu77(p78, CFrame.new(0, 2, v82.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, - 2, - v82.WalkSpeed), CFrame.Angles(0, 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, 2, v82.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, 2, v83.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, - 2, - v83.Velocity.Magnitude / 1.25), CFrame.Angles(0, 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, 2, v83.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, - 2, 0), CFrame.Angles(math.rad(90), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, - 2, 0), CFrame.Angles(0, 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, - 2, 0), CFrame.Angles(math.rad(- 90), 0, 0))
+                            task.wait()
+                            vu77(p78, CFrame.new(0, - 2, 0), CFrame.Angles(0, 0, 0))
+                            task.wait()
+                        end
+                        if tick() > v79 + 3 then
+                            vu61()
+                            v80:Destroy()
+                            local v84 = getgenv().OldPos
+                            if vu71.Position.Y > v84.Position.Y then
+                                v84 = CFrame.new(v84.Position.X, v84.Position.Y - (vu71.Position.Y - v84.Position.Y), v84.Position.Z)
+                            end
+                            vu70.PlatformStand = true
+                            vu71.CFrame = v84
+                            task.wait(1)
+                            vu70.PlatformStand = false
+                            vu70:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+                            vu67()
+                            return
+                        end
+                    end
+                end
+                workspace.FallenPartsDestroyHeight = - math.huge
+                v85(v73)
+            end
+        else
+            return
+        end
+    else
+        return
+    end
+end
+v9:AddButton({
+    Name = "Press! Fast - Fling",
+    Callback = function()
+        local v87 = getgenv().Target and vu57(getgenv().Target)
+        if v87 then
+            vu86(v87)
+        end
+    end
+})
+Button = v9:AddButton({
+    Name = "Get Sofa",
+    Callback = function()
+        local v88 = {
+            "PickingTools",
+            "Couch"
+        }
+        local v89 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v89 then
+            v89:InvokeServer(unpack(v88))
+        end
+    end
+})
+v9:AddSection({
+    "Menu Kill Car"
+})
+v9:AddButton({
+    Name = "Fling Bus",
+    Callback = function()
+        local v90 = game.Players.LocalPlayer
+        local v91 = v90.Character
+        local v92
+        if v91 then
+            v92 = v91:FindFirstChildOfClass("Humanoid")
+        else
+            v92 = v91
+        end
+        if v91 then
+            v91 = v91:FindFirstChild("HumanoidRootPart")
+        end
+        local v93 = workspace:FindFirstChild("Vehicles")
+        local v94
+        if v91 then
+            v94 = v91.CFrame
+        else
+            v94 = v91
+        end
+        if v92 and v91 then
+            local vu95 = v93:FindFirstChild(v90.Name .. "Car")
+            if not vu95 then
+                v91.CFrame = CFrame.new(1118.81, 75.998, - 1138.61)
+                task.wait(0.5)
+                local v96 = game.ReplicatedStorage:FindFirstChild("RE")
+                if v96 then
+                    v96 = game.ReplicatedStorage.RE:FindFirstChild("1Ca1r")
+                end
+                if v96 then
+                    v96:FireServer("PickingCar", "SchoolBus")
+                end
+                task.wait(0.5)
+                vu95 = v93:FindFirstChild(v90.Name .. "Car")
+            end
+            local v97 = 5
+            while 0 < v97 and not vu95 do
+                task.wait(0.25)
+                vu95 = v93:FindFirstChild(v90.Name .. "Car")
+                v97 = v97 - 0.25
+            end
+            if vu95 then
+                task.wait(0.5)
+                if vu95 and not v92.Sit then
+                    local v98 = vu95:FindFirstChild("Body")
+                    if v98 then
+                        v98 = vu95.Body:FindFirstChild("VehicleSeat")
+                    end
+                    if v98 then
+                        repeat
+                            task.wait()
+                            v91.CFrame = v98.CFrame
+                        until v92.Sit
+                    end
+                end
+                local function v103()
+                    while true do
+                        local v99 = game.Players:FindFirstChild(getgenv().Target)
+                        if v99 then
+                            local v100 = v99.Character
+                            local v101
+                            if v100 then
+                                v101 = v100:FindFirstChildOfClass("Humanoid")
+                            else
+                                v101 = v100
+                            end
+                            local v102
+                            if v100 then
+                                v102 = v100:FindFirstChild("HumanoidRootPart")
+                            else
+                                v102 = v100
+                            end
+                            if v100 and (v101 and v102) then
+                                return v100, v101, v102
+                            end
+                        end
+                        task.wait(0.2)
+                    end
+                end
+                local v104, vu105, vu106 = v103()
+                local v107 = Instance.new("Attachment", vu106)
+                local v108 = Instance.new("BodyVelocity")
+                v108.Velocity = Vector3.new(1000000000, 1000000000, 1000000000)
+                v108.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                v108.P = 500
+                v108.Parent = v107
+                local v109, v110, v111 = ipairs(vu95:GetDescendants())
+                while true do
+                    local v112, v113 = v109(v110, v111)
+                    if v112 == nil then
+                        break
+                    end
+                    v111 = v112
+                    if v113:IsA("BasePart") then
+                        local v114 = Instance.new("BodyVelocity")
+                        v114.Velocity = Vector3.new(1000000000, 1000000000, 1000000000)
+                        v114.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                        v114.P = 500
+                        v114.Parent = v113
+                    end
+                end
+                local v115 = 0
+                local v116 = 0
+                while vu95.Parent do
+                    task.wait()
+                    v115 = v115 + 100
+                    v116 = v116 + 5000
+                    local vu117 = CFrame.Angles(math.rad(v115), math.rad(v116), 0)
+                    if not (v104 and (vu105 and (vu106 and vu106.Parent))) then
+                        local v118, v119
+                        v104, v118, v119 = v103()
+                        vu106 = v119
+                        vu105 = v118
+                        if v107 then
+                            v107:Destroy()
+                        end
+                        if v108 then
+                            v108:Destroy()
+                        end
+                        v107 = Instance.new("Attachment", vu106)
+                        v108 = Instance.new("BodyVelocity")
+                        v108.Velocity = Vector3.new(1000000000, 1000000000, 1000000000)
+                        v108.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                        v108.P = 500
+                        v108.Parent = v107
+                    end
+                    local function v122(p120)
+                        local v121 = vu106.Position + p120 + vu105.MoveDirection * vu106.Velocity.Magnitude / 1.1
+                        vu95:SetPrimaryPartCFrame(CFrame.new(v121) * vu117)
+                    end
+                    v122(Vector3.new(0, 1, 0))
+                    v122(Vector3.new(0, - 2.25, 5))
+                    v122(Vector3.new(0, 2.25, 0.25))
+                    v122(Vector3.new(- 2.25, - 1.5, 2.25))
+                    v122(Vector3.new(0, 1.5, 0))
+                    v122(Vector3.new(0, - 1.5, 0))
+                end
+                if v107 then
+                    v107:Destroy()
+                end
+                if v108 then
+                    v108:Destroy()
+                end
+                v92.Sit = false
+                task.wait(0.1)
+                if v94 then
+                    v91.CFrame = v94
+                end
+            end
+        else
+            return
+        end
+    end
+})
+v9:AddButton({
+    Name = "Off Fling Bus",
+    Callback = function()
+        game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer(unpack({
+            "DeleteAllVehicles"
+        }))
+        task.wait()
+        local v123 = game.Players.LocalPlayer
+        local v124 = v123.Character or v123.CharacterAdded:Wait()
+        local v125 = v124:FindFirstChild("HumanoidRootPart")
+        local v126 = v124:FindFirstChildOfClass("Humanoid")
+        if v125 and v126 then
+            local v127 = Vector3.new(1118.81, 75.998, - 1138.61)
+            v126.PlatformStand = true
+            v125.Anchored = true
+            v125.AssemblyLinearVelocity = Vector3.zero
+            v125.AssemblyAngularVelocity = Vector3.zero
+            v125.CFrame = CFrame.new(v127)
+            print("Jogador teleportado para a posi\195\167\195\163o segura.")
+            task.wait(3)
+            v125.Anchored = false
+            v126.PlatformStand = false
+            print("Jogador liberado com seguran\195\167a.")
+        else
+            warn("RootPart ou Humanoid n\195\163o encontrado.")
+        end
+    end
+})
+v9:AddButton({
+    Name = "Ban House",
+    Callback = function()
+        local vu128 = game.Players.LocalPlayer
+        local _ = vu128.Backpack
+        local vu129 = vu128.Character
+        local v130 = vu129
+        local vu131 = vu129.FindFirstChildOfClass(v130, "Humanoid")
+        local v132 = vu129
+        local vu133 = vu129.FindFirstChild(v132, "HumanoidRootPart")
+        local v134 = game.Workspace:FindFirstChild("001_Lots")
+        local _ = vu133.CFrame
+        local v135 = 0
+        local v136 = 0
+        local vu137 = Workspace.Vehicles
+        function Check()
+            local v138 = vu128 and vu129 and (vu131 and vu133)
+            if v138 then
+                v138 = vu137
+            end
+            return v138
+        end
+        if not getgenv().Target then
+            return
+        end
+        if Check() then
+            if not v134:FindFirstChild(vu128.Name .. "House") then
+                local v139, v140, v141 = pairs(v134:GetChildren())
+                local v142 = nil
+                while true do
+                    local v143
+                    v141, v143 = v139(v140, v141)
+                    if v141 == nil then
+                        break
+                    end
+                    if v143.Name == "For Sale" then
+                        local v144, v145, v146 = pairs(v143:GetDescendants())
+                        while true do
+                            local v147
+                            v146, v147 = v144(v145, v146)
+                            if v146 == nil then
+                                break
+                            end
+                            if v147:IsA("NumberValue") and (v147.Name == "Number" and (v147.Value < 25 and v147.Value > 10)) then
+                                v142 = v143
+                                break
+                            end
+                        end
+                    end
+                end
+                local v148 = v142:FindFirstChild("BuyHouse")
+                local _ = v148.Position
+                if v148 and v148:IsA("BasePart") then
+                    vu133.CFrame = v148.CFrame + Vector3.new(0, - 6, 0)
+                    task.wait(0.5)
+                    local v149 = v148:FindFirstChild("ClickDetector")
+                    if v149 then
+                        fireclickdetector(v149)
+                    end
+                end
+            end
+            task.wait(0.5)
+            local v150 = v134:FindFirstChild(vu128.Name .. "House")
+            if v150 then
+                task.wait(0.5)
+                local v151, v152, v153 = pairs(v150:GetDescendants())
+                local v154 = nil
+                while true do
+                    local v155
+                    v153, v155 = v151(v152, v153)
+                    if v153 == nil then
+                        break
+                    end
+                    if v155.Name == "Number" and v155:IsA("NumberValue") then
+                        v154 = v155
+                    end
+                end
+                task.wait(0.5)
+                game:GetService("ReplicatedStorage").RE:FindFirstChild("1Gettin1gHous1e"):FireServer("PickingCustomHouse", "052_House", v154.Value)
+            end
+            task.wait(0.5)
+            local v156 = vu137
+            if not vu137.FindFirstChild(v156, vu128.Name .. "Car") and Check() then
+                vu133.CFrame = CFrame.new(1118.81, 75.998, - 1138.61)
+                task.wait(0.5)
+                game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer("PickingCar", "SchoolBus")
+                task.wait(0.5)
+                local v157 = vu137
+                local v158 = vu137.FindFirstChild(v157, vu128.Name .. "Car")
+                task.wait(0.5)
+                local v159 = v158 and v158:FindFirstChild("Body")
+                if v159 then
+                    v159 = v158.Body:FindFirstChild("VehicleSeat")
+                end
+                if v159 then
+                    repeat
+                        task.wait()
+                        vu133.CFrame = v159.CFrame * CFrame.new(0, math.random(- 1, 1), 0)
+                    until vu131.Sit
+                end
+            end
+            task.wait(0.5)
+            local v160 = vu137
+            local vu161 = vu137.FindFirstChild(v160, vu128.Name .. "Car")
+            if vu161 then
+                if not vu131.Sit then
+                    local v162 = vu161:FindFirstChild("Body")
+                    if v162 then
+                        v162 = vu161.Body:FindFirstChild("VehicleSeat")
+                    end
+                    if v162 then
+                        repeat
+                            task.wait()
+                            vu133.CFrame = v162.CFrame * CFrame.new(0, math.random(- 1, 1), 0)
+                        until vu131.Sit
+                    end
+                end
+                local v163 = game.Players:FindFirstChild(getgenv().Target)
+                if v163 then
+                    v163 = v163.Character
+                end
+                local v164
+                if v163 then
+                    v164 = v163:FindFirstChildOfClass("Humanoid")
+                else
+                    v164 = v163
+                end
+                local v165
+                if v163 then
+                    v165 = v163:FindFirstChild("HumanoidRootPart")
+                else
+                    v165 = v163
+                end
+                if v163 and (v164 and (v165 and not v164.Sit)) then
+                    while not v164.Sit do
+                        task.wait()
+                        local function v169(p166, p167, p168)
+                            vu161:SetPrimaryPartCFrame(CFrame.new(p166.Position) * p167 * p168)
+                        end
+                        v135 = v135 + 100
+                        v136 = v136 + 5000
+                        local v170 = CFrame.Angles(math.rad(v135), math.rad(v136), 0)
+                        v169(v165, CFrame.new(0, 1.5, 0) + v164.MoveDirection * v165.Velocity.Magnitude / 1.1, v170)
+                        v169(v165, CFrame.new(0, - 1.5, 0) + v164.MoveDirection * v165.Velocity.Magnitude / 1.1, v170)
+                        v169(v165, CFrame.new(2.25, 1.5, - 2.25) + v164.MoveDirection * v165.Velocity.Magnitude / 1.1, v170)
+                        v169(v165, CFrame.new(- 2.25, - 1.5, 2.25) + v164.MoveDirection * v165.Velocity.Magnitude / 1.1, v170)
+                    end
+                    task.wait(0.2)
+                    local v171 = v134:FindFirstChild(vu128.Name .. "House")
+                    vu161:SetPrimaryPartCFrame(CFrame.new(v171.HouseSpawnPosition.Position))
+                    task.wait(0.2)
+                    local v172 = Region3.new(vu133.Position - Vector3.new(30, 30, 30), vu133.Position + Vector3.new(30, 30, 30))
+                    local v173 = workspace:FindPartsInRegion3(v172, vu133, math.huge)
+                    local v174, v175, v176 = pairs(v173)
+                    while true do
+                        local v177
+                        v176, v177 = v174(v175, v176)
+                        if v176 == nil then
+                            break
+                        end
+                        if v177.Name == "HumanoidRootPart" then
+                            local v178 = {
+                                "BanPlayerFromHouse",
+                                game:GetService("Players"):FindFirstChild(v177.Parent.Name),
+                                v177.Parent
+                            }
+                            game:GetService("ReplicatedStorage").RE:FindFirstChild("1Playe1rTrigge1rEven1t"):FireServer(unpack(v178))
+                            game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer(unpack({
+                                "DeleteAllVehicles"
+                            }))
+                        end
+                    end
+                end
+            end
+        end
+    end
+})
+v9:AddButton({
+    Name = "Car Kill",
+    Callback = function()
+        local v179 = getgenv().Target
+        local v180 = game.Players.LocalPlayer
+        local v181 = v180.Character
+        local v182 = v181:FindFirstChildOfClass("Humanoid")
+        local v183 = v181:FindFirstChild("HumanoidRootPart")
+        local v184 = game.Workspace:FindFirstChild("Vehicles")
+        local v185 = v183.CFrame
+        if v179 and v182 then
+            if not v184:FindFirstChild(v180.Name .. "Car") and (v183 and v179) then
+                v183.CFrame = CFrame.new(1118.81, 75.998, - 1138.61)
+                task.wait(0.5)
+                game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer("PickingCar", "SchoolBus")
+                task.wait(0.5)
+                local v186 = v184:FindFirstChild(v180.Name .. "Car")
+                task.wait(0.5)
+                local v187 = v186:FindFirstChild("Body")
+                if v187 then
+                    v187 = v186.Body:FindFirstChild("VehicleSeat")
+                end
+                if v187 then
+                    repeat
+                        task.wait()
+                        v183.CFrame = v187.CFrame
+                    until v182.Sit
+                end
+            end
+            task.wait(0.5)
+            local vu188 = v184:FindFirstChild(v180.Name .. "Car")
+            if vu188 and not v182.Sit then
+                local v189 = vu188:FindFirstChild("Body")
+                if v189 then
+                    v189 = vu188.Body:FindFirstChild("VehicleSeat")
+                end
+                if v189 then
+                    repeat
+                        task.wait()
+                        v183.CFrame = v189.CFrame
+                    until v182.Sit
+                end
+            end
+            local v190 = game.Players:FindFirstChild(getgenv().Target)
+            if v190 then
+                local v191 = v190.Character
+                local vu192
+                if v191 then
+                    vu192 = v191:FindFirstChildOfClass("Humanoid")
+                else
+                    vu192 = v191
+                end
+                local vu193
+                if v191 then
+                    vu193 = v191:FindFirstChild("HumanoidRootPart")
+                else
+                    vu193 = v191
+                end
+                if v191 and (vu192 and (vu193 and not vu192.Sit)) then
+                    local v194 = 0
+                    local v195 = 0
+                    while not vu192.Sit do
+                        task.wait()
+                        v194 = v194 + 100
+                        v195 = v195 + 5000
+                        local vu196 = CFrame.Angles(math.rad(v194), math.rad(v195), 0)
+                        local function v200(p197, p198)
+                            local v199 = p197.Position + p198 + vu192.MoveDirection * vu193.Velocity.Magnitude / 1.05
+                            vu188:SetPrimaryPartCFrame(CFrame.new(v199) * vu196)
+                        end
+                        v200(vu193, Vector3.new(0, 1, 0))
+                        v200(vu193, Vector3.new(0, - 2.25, 5))
+                        v200(vu193, Vector3.new(0, 2.25, 0.25))
+                        v200(vu193, Vector3.new(- 2.25, - 1.5, 2.25))
+                        v200(vu193, Vector3.new(0, 1.5, 0))
+                        v200(vu193, Vector3.new(0, - 1.5, 0))
+                    end
+                    task.wait(0.1)
+                    vu188:SetPrimaryPartCFrame(CFrame.new(0, - 470, 0))
+                    task.wait(0.2)
+                    v182.Sit = false
+                    task.wait(0.1)
+                    v183.CFrame = v185
+                end
+            end
+        end
+    end
+})
+local function vu222()
+    local v201 = getgenv().Target
+    local v202 = game.Players.LocalPlayer
+    local v203 = v202.Character
+    local v204 = v203:FindFirstChildOfClass("Humanoid")
+    local v205 = v203:FindFirstChild("HumanoidRootPart")
+    local v206 = game.Workspace:FindFirstChild("Vehicles")
+    local v207 = v205.CFrame
+    if v201 and v204 then
+        if not v206:FindFirstChild(v202.Name .. "Car") and (v205 and v201) then
+            v205.CFrame = CFrame.new(1118.81, 75.998, - 1138.61)
+            task.wait(0.5)
+            game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer("PickingCar", "SchoolBus")
+            task.wait(0.5)
+            local v208 = v206:FindFirstChild(v202.Name .. "Car")
+            task.wait(0.5)
+            local v209 = v208:FindFirstChild("Body")
+            if v209 then
+                v209 = v208.Body:FindFirstChild("VehicleSeat")
+            end
+            if v209 then
+                repeat
+                    task.wait()
+                    v205.CFrame = v209.CFrame
+                until v204.Sit
+            end
+        end
+        task.wait(0.5)
+        local vu210 = v206:FindFirstChild(v202.Name .. "Car")
+        if vu210 and not v204.Sit then
+            local v211 = vu210:FindFirstChild("Body")
+            if v211 then
+                v211 = vu210.Body:FindFirstChild("VehicleSeat")
+            end
+            if v211 then
+                repeat
+                    task.wait()
+                    v205.CFrame = v211.CFrame
+                until v204.Sit
+            end
+        end
+        local v212 = game.Players:FindFirstChild(getgenv().Target)
+        if v212 then
+            v212 = v212.Character
+        end
+        local vu213
+        if v212 then
+            vu213 = v212:FindFirstChildOfClass("Humanoid")
+        else
+            vu213 = v212
+        end
+        local vu214
+        if v212 then
+            vu214 = v212:FindFirstChild("HumanoidRootPart")
+        else
+            vu214 = v212
+        end
+        if v212 and (vu213 and (vu214 and not vu213.Sit)) then
+            local v215 = 0
+            local v216 = 0
+            while not vu213.Sit do
+                task.wait()
+                v215 = v215 + 100
+                v216 = v216 + 5000
+                local vu217 = CFrame.Angles(math.rad(v215), math.rad(v216), 0)
+                local function v221(p218, p219)
+                    local v220 = p218.Position + p219 + vu213.MoveDirection * vu214.Velocity.Magnitude / 1.05
+                    vu210:SetPrimaryPartCFrame(CFrame.new(v220) * vu217)
+                end
+                v221(vu214, Vector3.new(0, 1, 0))
+                v221(vu214, Vector3.new(0, - 2.25, 5))
+                v221(vu214, Vector3.new(0, 2.25, 0.25))
+                v221(vu214, Vector3.new(- 2.25, - 1.5, 2.25))
+                v221(vu214, Vector3.new(0, 1.5, 0))
+                v221(vu214, Vector3.new(0, - 1.5, 0))
+            end
+            task.wait(0.1)
+            vu210:SetPrimaryPartCFrame(v207)
+            task.wait(0.2)
+            v204.Sit = false
+            task.wait(0.1)
+            task.wait(0.1)
+            game:GetService("ReplicatedStorage").RE:FindFirstChild("1Ca1r"):FireServer("DeleteAllVehicles")
+        end
+    end
+end
+v9:AddButton({
+    Name = "Bring Car",
+    Callback = function()
+        vu222()
+    end
+})
+local v223 = v7:MakeTab({
+    "Items",
+    "rbxassetid://10709769841"
+})
+v223:AddSection({
+    "Items"
+})
+Button = v223:AddButton({
+    Name = "Obter Cart\195\163o de Energia",
+    Callback = function()
+        local v224 = {
+            "PickingTools",
+            "PowerKeyCard"
+        }
+        local v225 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v225 then
+            v225:InvokeServer(unpack(v224))
+        end
+    end
+})
+Button = v223:AddButton({
+    Name = "Pegar Cristal 1",
+    Callback = function()
+        local v226 = {
+            "PickingTools",
+            "Crystal"
+        }
+        local v227 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v227 then
+            v227:InvokeServer(unpack(v226))
+        end
+    end
+})
+Button = v223:AddButton({
+    Name = "Pegar Cristal 2",
+    Callback = function()
+        local v228 = {
+            "PickingTools",
+            "Crystals"
+        }
+        local v229 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v229 then
+            v229:InvokeServer(unpack(v228))
+        end
+    end
+})
+Button = v223:AddButton({
+    Name = "Obter Chave Antiga",
+    Callback = function()
+        local v230 = {
+            "PickingTools",
+            "OldKey"
+        }
+        local v231 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v231 then
+            v231:InvokeServer(unpack(v230))
+        end
+    end
+})
+Button = v223:AddButton({
+    Name = "Pegar Espada de Ouro",
+    Callback = function()
+        local v232 = {
+            "PickingTools",
+            "SwordGold"
+        }
+        local v233 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v233 then
+            v233:InvokeServer(unpack(v232))
+        end
+    end
+})
+Button = v223:AddButton({
+    Name = "Obter Cart\195\163o da Ag\195\170ncia Secreta",
+    Callback = function()
+        local v234 = {
+            "PickingTools",
+            "KeyCardDarkGreen"
+        }
+        local v235 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v235 then
+            v235:InvokeServer(unpack(v234))
+        end
+    end
+})
+Button = v223:AddButton({
+    Name = "Pegar Mangueira de Inc\195\170ndio",
+    Callback = function()
+        local v236 = {
+            "PickingTools",
+            "FireHose"
+        }
+        local v237 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v237 then
+            v237:InvokeServer(unpack(v236))
+        end
+    end
+})
+Button = v223:AddButton({
+    Name = "Obter Livro Secreto da Ag\195\170ncia",
+    Callback = function()
+        local v238 = {
+            "PickingTools",
+            "AgencyBook"
+        }
+        local v239 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v239 then
+            v239:InvokeServer(unpack(v238))
+        end
+    end
+})
+Button = v223:AddButton({
+    Name = "Obter Cart\195\163o Branco do Banco",
+    Callback = function()
+        local v240 = {
+            "PickingTools",
+            "KeyCardWhite"
+        }
+        local v241 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v241 then
+            v241:InvokeServer(unpack(v240))
+        end
+    end
+})
+Button = v223:AddButton({
+    Name = "Pegar Saco de Diamantes",
+    Callback = function()
+        local v242 = {
+            "PickingTools",
+            "DuffleBagDiamonds"
+        }
+        local v243 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v243 then
+            v243:InvokeServer(unpack(v242))
+        end
+    end
+})
+Button = v223:AddButton({
+    Name = "Obter Chave Preta do Banco",
+    Callback = function()
+        local v244 = {
+            "PickingTools",
+            "BankGateKey"
+        }
+        local v245 = game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l")
+        if v245 then
+            v245:InvokeServer(unpack(v244))
+        end
+    end
+})
+local v246 = v7:MakeTab({
+    "Others",
+    "rbxassetid://10734886202"
+})
+v246:AddSection({
+    " Remover House Ban"
+})
+v246:AddButton({
+    Name = "Remover Ban",
+    Description = "Remover altomaticamente ban de todas as casas",
+    Callback = function()
+        local v247 = 0
+        local v248 = 0
+        for v249 = 1, 37 do
+            local v250 = "BannedBlock" .. v249
+            local vu251 = Workspace:FindFirstChild(v250, true)
+            if vu251 then
+                local v252, _ = pcall(function()
+                    vu251:Destroy()
+                end)
+                if v252 then
+                    v248 = v248 + 1
+                else
+                    v247 = v247 + 1
+                end
+            end
+        end
+        local v253, v254, v255 = pairs(Workspace:GetDescendants())
+        while true do
+            local vu256
+            v255, vu256 = v253(v254, v255)
+            if v255 == nil then
+                break
+            end
+            if vu256.Name:match("BannedBlock") then
+                local v257, _ = pcall(function()
+                    vu256:Destroy()
+                end)
+                if v257 then
+                    v248 = v248 + 1
+                else
+                    v247 = v247 + 1
+                end
+            end
+        end
+        if v248 > 0 then
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "Sucesso",
+                Text = "Bans removidos de " .. v248 .. " casas!",
+                Duration = 5
+            })
+        end
+        if v247 > 0 then
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "Aviso",
+                Text = "Falha ao remover bans de " .. v247 .. " casas.",
+                Duration = 5
+            })
+        end
+        if v248 == 0 and v247 == 0 then
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "Aviso",
+                Text = "Nenhum ban encontrado para remover.",
+                Duration = 5
+            })
+        end
+    end
+})
+v246:AddSection({
+    "Copy Outfit"
+})
+local vu258 = game:GetService("Players")
+local vu259 = game:GetService("ReplicatedStorage"):WaitForChild("Remotes")
+local vu260 = nil
+local function vu267()
+    local v261 = vu258
+    local v262, v263, v264 = ipairs(v261:GetPlayers())
+    local v265 = {}
+    while true do
+        local v266
+        v264, v266 = v262(v263, v264)
+        if v264 == nil then
+            break
+        end
+        table.insert(v265, v266.Name)
+    end
+    return v265
+end
+local vu269 = v246:AddDropdown({
+    Name = "Select player",
+    Options = vu267(),
+    Default = vu260,
+    Callback = function(p268)
+        vu260 = p268
+    end
+})
+local function v270()
+    vu269:Refresh(vu267(), true)
+end
+vu258.PlayerAdded:Connect(v270)
+vu258.PlayerRemoving:Connect(v270)
+v246:AddButton({
+    Name = "Copy Avatar",
+    Callback = function()
+        if vu260 then
+            local v271 = vu258.LocalPlayer.Character
+            local v272 = vu258:FindFirstChild(vu260)
+            if v272 and v272.Character then
+                if v271 then
+                    v271 = v271:FindFirstChildOfClass("Humanoid")
+                end
+                local v273 = v272.Character:FindFirstChildOfClass("Humanoid")
+                if v271 and v273 then
+                    local v274 = v271:GetAppliedDescription()
+                    local v275, v276, v277 = ipairs(v274:GetAccessories(true))
+                    while true do
+                        local v278
+                        v277, v278 = v275(v276, v277)
+                        if v277 == nil then
+                            break
+                        end
+                        if v278.AssetId and tonumber(v278.AssetId) then
+                            vu259.Wear:InvokeServer(tonumber(v278.AssetId))
+                            task.wait(0.2)
+                        end
+                    end
+                    if tonumber(v274.Shirt) then
+                        vu259.Wear:InvokeServer(tonumber(v274.Shirt))
+                        task.wait(0.2)
+                    end
+                    if tonumber(v274.Pants) then
+                        vu259.Wear:InvokeServer(tonumber(v274.Pants))
+                        task.wait(0.2)
+                    end
+                    if tonumber(v274.Face) then
+                        vu259.Wear:InvokeServer(tonumber(v274.Face))
+                        task.wait(0.2)
+                    end
+                    local v279 = v273:GetAppliedDescription()
+                    local v280 = {
+                        {
+                            v279.Torso,
+                            v279.RightArm,
+                            v279.LeftArm,
+                            v279.RightLeg,
+                            v279.LeftLeg,
+                            v279.Head
+                        }
+                    }
+                    vu259.ChangeCharacterBody:InvokeServer(unpack(v280))
+                    task.wait(0.5)
+                    if tonumber(v279.Shirt) then
+                        vu259.Wear:InvokeServer(tonumber(v279.Shirt))
+                        task.wait(0.3)
+                    end
+                    if tonumber(v279.Pants) then
+                        vu259.Wear:InvokeServer(tonumber(v279.Pants))
+                        task.wait(0.3)
+                    end
+                    if tonumber(v279.Face) then
+                        vu259.Wear:InvokeServer(tonumber(v279.Face))
+                        task.wait(0.3)
+                    end
+                    local v281, v282, v283 = ipairs(v279:GetAccessories(true))
+                    while true do
+                        local v284
+                        v283, v284 = v281(v282, v283)
+                        if v283 == nil then
+                            break
+                        end
+                        if v284.AssetId and tonumber(v284.AssetId) then
+                            vu259.Wear:InvokeServer(tonumber(v284.AssetId))
+                            task.wait(0.3)
+                        end
+                    end
+                    local v285 = v272.Character:FindFirstChild("Body Colors")
+                    if v285 then
+                        vu259.ChangeBodyColor:FireServer(tostring(v285.HeadColor))
+                        task.wait(0.3)
+                    end
+                    if tonumber(v279.IdleAnimation) then
+                        vu259.Wear:InvokeServer(tonumber(v279.IdleAnimation))
+                        task.wait(0.3)
+                    end
+                    local v286 = v272:FindFirstChild("PlayersBag")
+                    if v286 then
+                        if v286:FindFirstChild("RPName") and v286.RPName.Value ~= "" then
+                            vu259.RPNameText:FireServer("RolePlayName", v286.RPName.Value)
+                            task.wait(0.3)
+                        end
+                        if v286:FindFirstChild("RPBio") and v286.RPBio.Value ~= "" then
+                            vu259.RPNameText:FireServer("RolePlayBio", v286.RPBio.Value)
+                            task.wait(0.3)
+                        end
+                        if v286:FindFirstChild("RPNameColor") then
+                            vu259.RPNameColor:FireServer("PickingRPNameColor", v286.RPNameColor.Value)
+                            task.wait(0.3)
+                        end
+                        if v286:FindFirstChild("RPBioColor") then
+                            vu259.RPNameColor:FireServer("PickingRPBioColor", v286.RPBioColor.Value)
+                            task.wait(0.3)
+                        end
+                    end
+                end
+            end
+        end
+    end
+})
+v246:AddSection({
+    "Character Appearance"
+})
+local vu287 = false
+v246:AddToggle({
+    Name = "Loop Smoke Avatar",
+    Default = false,
+    Callback = function(p288)
+        vu287 = p288
+        while vu287 do
+            local v289 = workspace:WaitForChild("WorkspaceCom"):WaitForChild("001_Mall"):WaitForChild("001_Pizza"):FindFirstChild("CatchFire")
+            if v289 and v289:FindFirstChild("TouchInterest") then
+                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v289, 0)
+                wait()
+                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v289, 1)
+            end
+            wait(1)
+        end
+    end
+})
+v246:AddToggle({
+    Name = "Loop Fire Avatar",
+    Default = false,
+    Callback = function(p290)
+        vu287 = p290
+        while vu287 do
+            local v291 = game.Players.LocalPlayer.Name
+            local v292 = game:GetService("Workspace"):WaitForChild("001_Lots"):FindFirstChild(v291 .. "House")
+            if v292 then
+                local v293 = v292:WaitForChild("HousePickedByPlayer"):WaitForChild("HouseModel"):WaitForChild("001_BBQ"):FindFirstChild("CatchFire")
+                if v293 and v293:FindFirstChild("TouchInterest") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v293, 0)
+                    wait()
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v293, 1)
+                end
+            else
+                warn("House not found for player: " .. v291)
+            end
+            wait(1)
+        end
+    end
+})
+v246:AddButton({
+    Name = "Get Trail",
+    Callback = function()
+        local v294 = game.Players.LocalPlayer.Character
+        local v295 = v294:FindFirstChildOfClass("Humanoid")
+        local v296 = v294:FindFirstChild("HumanoidRootPart")
+        local v297 = v296.CFrame
+        local function v299(p298)
+            p298.WalkSpeed = 0
+            p298.JumpPower = 0
+        end
+        local function v301(p300)
+            p300.WalkSpeed = 16
+            p300.JumpPower = 50
+        end
+        local v302 = CFrame.new(- 349, 5, 98)
+        local v303 = workspace.WorkspaceCom["001_Hospital"]:FindFirstChild("PoolClick")
+        if v303 and v303:FindFirstChild("ClickDetector") then
+            v299(v295)
+            v296.CFrame = v302
+            task.wait(1)
+            v296.CFrame = v303.CFrame
+            fireclickdetector(v303.ClickDetector)
+            task.wait(2)
+            v296.CFrame = v297
+            v301(v295)
+        else
+            warn("PoolClick ou ClickDetector n\195\163o encontrado!")
+        end
+    end
+})
+v246:AddSection({
+    "Teleports"
+})
+local vu304 = game.Players.LocalPlayer
+local vu305 = "Morro"
+v246:AddDropdown({
+    Name = "Locais de Brookhaven",
+    Description = "Selecione um local para teleportar",
+    Default = "Morro",
+    Multi = false,
+    Options = {
+        "Morro",
+        "Pra\195\167a",
+        "Banco",
+        "Hospital",
+        "Prefeitura",
+        "Fazenda",
+        "Mercado",
+        "Shopping",
+        "Aeroporto",
+        "Hotel",
+        "Beira-mar 1",
+        "Beira-mar 2"
+    },
+    Callback = function(p306)
+        vu305 = p306
+    end
+})
+v246:AddButton({
+    Name = "Teleportar",
+    Description = "Teleporta para o local selecionado",
+    Callback = function()
+        if vu304.Character and vu304.Character:FindFirstChild("HumanoidRootPart") then
+            local vu307 = vu304.Character.HumanoidRootPart
+            local vu308 = vu304.Character:FindFirstChildOfClass("Humanoid")
+            local vu309 = {
+                Morro = Vector3.new(- 348.64, 65.94, - 458.08),
+                ["Pra\195\167a"] = Vector3.new(- 26.17, 3.48, - 0.93),
+                Banco = Vector3.new(1.99, 3.32, 236.65),
+                Hospital = Vector3.new(- 303.2, 3.4, 13.74),
+                Prefeitura = Vector3.new(- 354.65, 7.32, - 102.16),
+                Fazenda = Vector3.new(- 766.41, 2.92, - 61.1),
+                Mercado = Vector3.new(16.31, 3.32, - 107.07),
+                Shopping = Vector3.new(151.05, 3.52, - 190.64),
+                Aeroporto = Vector3.new(290.23, 4.32, 42.57),
+                Hotel = Vector3.new(159.1, 3.32, 164.97),
+                ["Beira-mar 1"] = Vector3.new(55.69, 2.94, - 1403.6),
+                ["Beira-mar 2"] = Vector3.new(42.39, 2.94, 1336.14)
+            }
+            if vu309[vu305] then
+                pcall(function()
+                    if vu308 then
+                        vu308:ChangeState(Enum.HumanoidStateType.Physics)
+                        vu308.WalkSpeed = 0
+                    end
+                    vu307.Anchored = true
+                    vu307.CFrame = CFrame.new(vu309[vu305])
+                    task.wait(0.4)
+                    vu307.Anchored = false
+                    if vu308 then
+                        vu308.WalkSpeed = 16
+                        vu308:ChangeState(Enum.HumanoidStateType.Running)
+                    end
+                end)
+            end
+        end
+    end
+})
+v246:AddSection({
+    "Nome Colorido"
+})
+local vu310 = {
+    Color3.new(1, 0, 0),
+    Color3.new(0, 1, 0),
+    Color3.new(0, 0, 1),
+    Color3.new(1, 1, 0),
+    Color3.new(1, 0, 1),
+    Color3.new(0, 1, 1),
+    Color3.new(1, 0.5, 0),
+    Color3.new(0.5, 0, 1)
+}
+local function vu315(p311, pu312)
+    local v313 = game:GetService("ReplicatedStorage")
+    local vu314 = v313:FindFirstChild("RE")
+    if vu314 then
+        vu314 = v313.RE:FindFirstChild(p311)
+    end
+    if vu314 then
+        pcall(function()
+            vu314:FireServer(unpack(pu312))
+        end)
+    end
+end
+local vu316 = false
+v246:AddToggle({
+    Name = "Nome e Bio RGB Sincronizado",
+    Description = "Ativa cores RGB sincronizadas para Nome e Bio",
+    Default = false,
+    Callback = function(p317)
+        vu316 = p317
+        if p317 then
+            task.spawn(function()
+                while vu316 and vu12.Character do
+                    local v318 = vu310[math.random(1, # vu310)]
+                    vu315("1RPNam1eColo1r", {
+                        "PickingRPNameColor",
+                        v318
+                    })
+                    vu315("1RPNam1eColo1r", {
+                        "PickingRPBioColor",
+                        v318
+                    })
+                    task.wait(1)
+                end
+            end)
+        end
+    end
+})
+local vu319 = false
+v246:AddToggle({
+    Name = "Nome RGB",
+    Description = "Ativa cores RGB para o Nome",
+    Default = false,
+    Callback = function(p320)
+        vu319 = p320
+        if p320 then
+            task.spawn(function()
+                while vu319 and vu12.Character do
+                    vu315("1RPNam1eColo1r", {
+                        "PickingRPNameColor",
+                        vu310[math.random(1, # vu310)]
+                    })
+                    task.wait(1)
+                end
+            end)
+        end
+    end
+})
+local vu321 = false
+v246:AddToggle({
+    Name = "Bio RGB",
+    Description = "Ativa cores RGB aleat\195\179rias na sua bio",
+    Default = false,
+    Callback = function(p322)
+        vu321 = p322
+        if p322 then
+            task.spawn(function()
+                while vu321 and vu12.Character do
+                    vu315("1RPNam1eColo1r", {
+                        "PickingRPBioColor",
+                        vu310[math.random(1, # vu310)]
+                    })
+                    task.wait(1)
+                end
+            end)
+        end
+    end
+})
+v246:AddSection({
+    "Character Part"
+})
+v246:AddTextBox({
+    Name = "Setar JumpPower",
+    Description = "Define o poder do pulo",
+    PlaceholderText = "Ex: 100",
+    ClearTextOnFocus = false,
+    Callback = function(p323)
+        local v324 = game.Players.LocalPlayer.Character
+        if v324 then
+            v324 = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+        end
+        local v325 = v324 and tonumber(p323)
+        if v325 then
+            v324.JumpPower = v325
+        end
+    end
+})
+v246:AddTextBox({
+    Name = "Setar Velocidade",
+    Description = "Define a velocidade de andar",
+    PlaceholderText = "Ex: 16",
+    ClearTextOnFocus = false,
+    Callback = function(p326)
+        local v327 = game.Players.LocalPlayer.Character
+        if v327 then
+            v327 = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+        end
+        local v328 = v327 and tonumber(p326)
+        if v328 then
+            v327.WalkSpeed = v328
+        end
+    end
+})
+v246:AddTextBox({
+    Name = "Setar Gravidade",
+    Description = "Define a gravidade do mundo",
+    PlaceholderText = "Ex: 196.2",
+    ClearTextOnFocus = false,
+    Callback = function(p329)
+        local v330 = tonumber(p329)
+        if v330 then
+            workspace.Gravity = v330
+        end
+    end
+})
+v246:AddButton({
+    Name = "Resetar F\195\173sica (Padr\195\163o)",
+    Callback = function()
+        local v331 = game.Players.LocalPlayer.Character
+        if v331 then
+            v331 = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+        end
+        if v331 then
+            v331.WalkSpeed = 16
+            v331.JumpPower = 50
+        end
+        workspace.Gravity = 196.2
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Resetado",
+            Text = "Velocidade, pulo e gravidade foram restaurados.",
+            Duration = 5
+        })
+    end
+})
+local vu332 = false
+v246:AddToggle({
+    Name = "Noclip",
+    Default = false,
+    Callback = function(p333)
+        if p333 then
+            vu332 = true
+            local vu334 = nil
+            vu334 = game:GetService("RunService").Stepped:Connect(function()
+                if vu332 then
+                    local v335, v336, v337 = pairs(workspace:GetChildren())
+                    while true do
+                        local v338
+                        v337, v338 = v335(v336, v337)
+                        if v337 == nil then
+                            break
+                        end
+                        if v338.Name == game.Players.LocalPlayer.Name then
+                            local v339, v340, v341 = pairs(workspace[game.Players.LocalPlayer.Name]:GetChildren())
+                            while true do
+                                local v342
+                                v341, v342 = v339(v340, v341)
+                                if v341 == nil then
+                                    break
+                                end
+                                if v342:IsA("BasePart") then
+                                    v342.CanCollide = false
+                                end
+                            end
+                        end
+                    end
+                else
+                    vu334:Disconnect()
+                end
+            end)
+        else
+            vu332 = false
+        end
+    end
+})
+local vu343 = v7:MakeTab({
+    "Audio All",
+    "rbxassetid://10723344088"
+})
+local vu344 = false
+local vu345 = ""
+local v346 = vu343
+local v348 = {
+    Name = "Insira o ID Audio All",
+    Description = "Digite o ID do som que deseja tocar",
+    Default = "",
+    PlaceholderText = "Exemplo: 6832470734",
+    ClearTextOnFocus = true,
+    Callback = function(p347)
+        vu345 = tonumber(p347)
+    end
+}
+vu343.AddTextBox(v346, v348)
+local function vu353(p349, pu350)
+    local v351 = game:GetService("ReplicatedStorage")
+    local vu352 = v351:FindFirstChild("RE")
+    if vu352 then
+        vu352 = v351.RE:FindFirstChild(p349)
+    end
+    if vu352 then
+        pcall(function()
+            vu352:FireServer(unpack(pu350))
+        end)
+    end
+end
+local v354 = vu343
+local v356 = {
+    Name = "Tocar Som",
+    Description = "Clique para tocar a m\195\186sica inserida",
+    Callback = function()
+        if vu345 then
+            vu353("1Gu1nSound1s", {
+                Workspace,
+                vu345,
+                1
+            })
+            local v355 = Instance.new("Sound", Workspace)
+            v355.SoundId = "rbxassetid://" .. vu345
+            v355.Looped = false
+            v355:Play()
+            task.wait(3)
+            v355:Destroy()
+        end
+    end
+}
+vu343.AddButton(v354, v356)
+local v357 = vu343
+local v361 = {
+    Name = "Loop",
+    Description = "Ative para colocar o som em loop",
+    Default = false,
+    Callback = function(p358)
+        vu344 = p358
+        if vu344 then
+            spawn(function()
+                while vu344 do
+                    if vu345 then
+                        vu353("1Gu1nSound1s", {
+                            Workspace,
+                            vu345,
+                            1
+                        })
+                        local vu359 = Instance.new("Sound", Workspace)
+                        vu359.SoundId = "rbxassetid://" .. vu345
+                        vu359.Looped = false
+                        local v360 = vu359
+                        vu359.Play(v360)
+                        task.spawn(function()
+                            task.wait(3)
+                            vu359:Destroy()
+                        end)
+                    end
+                    task.wait(1)
+                end
+            end)
+        end
+    end
+}
+vu343.AddToggle(v357, v361)
+local function v388(p362, p363, p364)
+    local v365, v366, v367 = pairs(p363)
+    local v368 = {}
+    local vu369 = {}
+    while true do
+        local v370
+        v367, v370 = v365(v366, v367)
+        if v367 == nil then
+            break
+        end
+        local v371, v372, v373 = ipairs(v370)
+        local v374 = v367
+        while true do
+            local v375
+            v373, v375 = v371(v372, v373)
+            if v373 == nil then
+                break
+            end
+            if v375.name ~= "" and v375.id ~= "4354908569" then
+                table.insert(v368, v375.name)
+                vu369[v375.name] = {
+                    id = v375.id,
+                    category = v374
+                }
+            end
+        end
+    end
+    local vu376 = nil
+    local vu377 = 1
+    local vu378 = 1
+    local function vu384(p379, p380, p381)
+        vu353("1Gu1nSound1s", {
+            Workspace,
+            p379,
+            p380
+        })
+        local vu382 = Instance.new("Sound")
+        vu382.Parent = Workspace
+        vu382.SoundId = "rbxassetid://" .. p379
+        vu382.Volume = p380
+        vu382.Pitch = p381
+        vu382.Looped = false
+        local v383 = vu382
+        vu382.Play(v383)
+        task.spawn(function()
+            task.wait(3)
+            vu382:Destroy()
+        end)
+    end
+    vu343:AddDropdown({
+        Name = p362,
+        Description = "Escolha um som para tocar no servidor",
+        Default = p364,
+        Multi = false,
+        Options = v368,
+        Callback = function(p385)
+            if p385 and vu369[p385] then
+                vu376 = vu369[p385].id
+            else
+                vu376 = nil
+            end
+        end
+    })
+    vu343:AddButton({
+        Name = "Tocar Som Selecionado",
+        Description = "Clique para tocar o som do dropdown",
+        Callback = function()
+            if vu376 then
+                vu384(vu376, vu377, vu378)
+            end
+        end
+    })
+    local vu386 = false
+    vu343:AddToggle({
+        Name = "Loop",
+        Description = "Ativa o loop do som selecionado",
+        Default = false,
+        Callback = function(p387)
+            vu386 = p387
+            if p387 then
+                task.spawn(function()
+                    while vu386 do
+                        if vu376 then
+                            vu384(vu376, vu377, vu378)
+                        end
+                        task.wait(1)
+                    end
+                end)
+            end
+        end
+    })
+end
+v388("Selecione um meme", {
+    [vu315] = {
+        {
+            name = "pankapakan",
+            id = "122547522269143"
+        },
+        {
+            name = "gemido",
+            id = "106835463235574"
+        },
+        {
+            name = "gemidao v2",
+            id = "112179417472137"
+        },
+        {
+            name = "Gemido ultra r\195\161pido",
+            id = "128863565301778"
+        },
+        {
+            name = "sus sex",
+            id = "128137573022197"
+        },
+        {
+            name = "gemido estranho",
+            id = "131219411501419"
+        },
+        {
+            name = "gemido kawai",
+            id = "100409245129170"
+        },
+        {
+            name = "Hentai gemido",
+            id = "125037339642322"
+        },
+        {
+            name = "Hentai wiaaaaan",
+            id = "88332347208779"
+        },
+        {
+            name = "iamete cunasai",
+            id = "108494476595033"
+        },
+        {
+            name = "dodichan onnn...",
+            id = "134640594695384"
+        },
+        {
+            name = "Toma jack",
+            id = "132603645477541"
+        },
+        {
+            name = "Toma jackV2",
+            id = "100446887985203"
+        },
+        {
+            name = "Toma jack no sol quente",
+            id = "97476487963273"
+        },
+        {
+            name = "ifood",
+            id = "133843750864059"
+        },
+        {
+            name = "pelo geito ela ta querendo ram",
+            id = "94395705857835"
+        },
+        {
+            name = "lula vai todo mundo",
+            id = "136804576009416"
+        },
+        {
+            name = "coringa",
+            id = "84663543883498"
+        },
+        {
+            name = "shoope",
+            id = "8747441609"
+        },
+        {
+            name = "quenojo",
+            id = "103440368630269"
+        },
+        {
+            name = "sai dai lava prato",
+            id = "101232400175829"
+        },
+        {
+            name = "se e loko numconpe\195\167a",
+            id = "78442476709262"
+        },
+        {
+            name = "mita sequer que eu too uma",
+            id = "94889439372168"
+        },
+        {
+            name = "Hoje vou ser tua mulher e tu",
+            id = "90844637105538"
+        },
+        {
+            name = "Deita aqui eu mandei vc deitar sirens",
+            id = "100291188941582"
+        },
+        {
+            name = "miau",
+            id = "131804436682424"
+        },
+        {
+            name = "skibidi",
+            id = "128771670035179"
+        },
+        {
+            name = "BIRULEIBI",
+            id = "121569761604968"
+        },
+        {
+            name = "sai",
+            id = "121169949217007"
+        },
+        {
+            name = "risada boa dms",
+            id = "127589011971759"
+        },
+        {
+            name = "vacilo perna de pau",
+            id = "106809680656199"
+        },
+        {
+            name = "gomo gomo no!!!",
+            id = "137067472449625"
+        },
+        {
+            name = "arroto",
+            id = "140203378050178"
+        },
+        {
+            name = "iraaaa",
+            id = "136752451575091"
+        },
+        {
+            name = "n\195\163o fica se achando muito n\195\163o",
+            id = "101588606280167"
+        },
+        {
+            name = "WhatsApp notifica\195\167ao",
+            id = "107004225739474"
+        },
+        {
+            name = "Samsung",
+            id = "123767635061073"
+        },
+        {
+            name = "Shiiii",
+            id = "120566727202986"
+        },
+        {
+            name = "ai_tomaa miku",
+            id = "139770074770361"
+        },
+        {
+            name = "kuru_kuru",
+            id = "122465710753374"
+        },
+        {
+            name = "PM ROCAM",
+            id = "96161547081609"
+        },
+        {
+            name = "cavalo!!",
+            id = "78871573440184"
+        },
+        {
+            name = "deixa os garoto brinca",
+            id = "80291355054807"
+        },
+        {
+            name = "flamengo",
+            id = "137774355552052"
+        },
+        {
+            name = "sai do mei satnas",
+            id = "127944706557246"
+        },
+        {
+            name = "namoral agora e a hora",
+            id = "120677947987369"
+        },
+        {
+            name = "n pode me chutar pq seu celebro e burro",
+            id = "82284055473737"
+        },
+        {
+            name = "vc ta fudido vou te pegar",
+            id = "120214772725166"
+        },
+        {
+            name = "deley",
+            id = "102906880476838"
+        },
+        {
+            name = "Tu e um beta",
+            id = "130233956349541"
+        },
+        {
+            name = "Porfavor n tira eu nao",
+            id = "85321374020324"
+        },
+        {
+            name = "Ol\195\161 beleza vc pode me d\195\161 muitos",
+            id = "74235334504693"
+        },
+        {
+            name = "Discord sus",
+            id = "122662798976905"
+        },
+        {
+            name = "rojao apito",
+            id = "6549021381"
+        },
+        {
+            name = "off",
+            id = "1778829098"
+        },
+        {
+            name = "Kazuma kazuma",
+            id = "127954653962405"
+        },
+        {
+            name = "sometourado",
+            id = "123592956882621"
+        },
+        {
+            name = "Estouradoespad",
+            id = "136179020015211"
+        },
+        {
+            name = "Alaku bommm",
+            id = "110796593805268"
+        },
+        {
+            name = "busss",
+            id = "139841197791567"
+        },
+        {
+            name = "Estourado wItb",
+            id = "137478052262430"
+        },
+        {
+            name = "sla",
+            id = "116672405522828"
+        },
+        {
+            name = "HA HA HA",
+            id = "138236682866721"
+        }
+    }
+}, "pankapakan")
+v388("Selecione um terror ou efeito", {
+    ["efeito/terror"] = {
+        {
+            name = "jumpscar",
+            id = "91784486966761"
+        },
+        {
+            name = "gritoestourado",
+            id = "7520729342"
+        },
+        {
+            name = "gritomedo",
+            id = "113029085566978"
+        },
+        {
+            name = "Nukesiren",
+            id = "9067330158"
+        },
+        {
+            name = "nuclear sirenv2",
+            id = "675587093"
+        },
+        {
+            name = "Alertescola",
+            id = "6607047008"
+        },
+        {
+            name = "Memealertsiren",
+            id = "8379374771"
+        },
+        {
+            name = "sirenv3",
+            id = "6766811806"
+        },
+        {
+            name = "alet malaysia",
+            id = "7714172940"
+        },
+        {
+            name = "Risada",
+            id = "79191730206814"
+        },
+        {
+            name = "Hahahah",
+            id = "90096947219465"
+        },
+        {
+            name = "scream",
+            id = "314568939"
+        },
+        {
+            name = "Terrified meme scream",
+            id = "5853668794"
+        },
+        {
+            name = "Sonic.exe Scream Effect",
+            id = "146563959"
+        },
+        {
+            name = "Demon Scream",
+            id = "2738830850"
+        },
+        {
+            name = "SCP-096 Scream (raging)",
+            id = "343430735"
+        },
+        {
+            name = "Nightmare Yelling Bursts",
+            id = "9125713501"
+        },
+        {
+            name = "HORROR SCREAM 07",
+            id = "9043345732"
+        },
+        {
+            name = "Female Scream Woman Screams",
+            id = "9114397912"
+        },
+        {
+            name = "Scream1",
+            id = "1319496541"
+        },
+        {
+            name = "Scream2",
+            id = "199978176"
+        },
+        {
+            name = "scary maze scream",
+            id = "270145703"
+        },
+        {
+            name = "SammyClassicSonicFan\'s Scream",
+            id = "143942090"
+        },
+        {
+            name = "FNAF 2 Death Scream",
+            id = "1572549161"
+        },
+        {
+            name = "cod zombie scream",
+            id = "8566359672"
+        },
+        {
+            name = "Slendytubbies- CaveTubby Scream",
+            id = "1482639185"
+        },
+        {
+            name = "FNAF 2 Death Scream",
+            id = "5537531920"
+        },
+        {
+            name = "HORROR SCREAM 15",
+            id = "9043346574"
+        },
+        {
+            name = "Jumpscare Scream",
+            id = "6150329916"
+        },
+        {
+            name = "FNaF: Security Breach",
+            id = "2050522547"
+        },
+        {
+            name = "llllllll",
+            id = "5029269312"
+        },
+        {
+            name = "loud jumpscare",
+            id = "7236490488"
+        },
+        {
+            name = "fnaf",
+            id = "6982454389"
+        },
+        {
+            name = "Pinkamena Jumpscare 1",
+            id = "192334186"
+        },
+        {
+            name = "Ennard Jumpscare 2",
+            id = "629526707"
+        },
+        {
+            name = "a sla medo dino",
+            id = "125506416092123"
+        }
+    }
+}, "jumpscar")
+local v389 = vu343
+vu343.AddSection(v389, {
+    "Esp"
+})
+local vu390 = false
+local vu391 = Color3.fromRGB(255, 255, 255)
+local vu392 = false
+local function vu402(pu393)
+    if pu393.Character and pu393.Character:FindFirstChild("HumanoidRootPart") then
+        local vu394 = Instance.new("Highlight")
+        vu394.Name = "ESP_Highlight"
+        vu394.Adornee = pu393.Character
+        vu394.FillColor = vu391
+        vu394.FillTransparency = 0.5
+        vu394.OutlineColor = Color3.fromRGB(0, 0, 0)
+        vu394.OutlineTransparency = 0
+        vu394.Parent = pu393.Character
+        local v395 = Instance.new("BillboardGui")
+        v395.Name = "ESP_Info"
+        v395.Adornee = pu393.Character:FindFirstChild("HumanoidRootPart")
+        v395.Size = UDim2.new(0, 150, 0, 50)
+        v395.StudsOffset = Vector3.new(0, 3, 0)
+        v395.AlwaysOnTop = true
+        v395.Parent = pu393.Character
+        local vu396 = Instance.new("TextLabel")
+        vu396.Size = UDim2.new(1, 0, 0.2, 0)
+        vu396.BackgroundTransparency = 1
+        vu396.Text = pu393.Name
+        vu396.TextColor3 = vu391
+        vu396.TextStrokeTransparency = 0
+        vu396.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+        vu396.TextScaled = true
+        vu396.Font = Enum.Font.Code
+        vu396.Parent = v395
+        local vu397 = Instance.new("TextLabel")
+        vu397.Size = UDim2.new(1, 0, 0.2, 0)
+        vu397.Position = UDim2.new(0, 0, 0.2, 0)
+        vu397.BackgroundTransparency = 1
+        vu397.Text = "Dist\195\162ncia: Calculando..."
+        vu397.TextColor3 = vu391
+        vu397.TextStrokeTransparency = 0
+        vu397.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+        vu397.TextScaled = true
+        vu397.Font = Enum.Font.Code
+        vu397.Parent = v395
+        local vu398 = Instance.new("TextLabel")
+        vu398.Size = UDim2.new(1, 0, 0.2, 0)
+        vu398.Position = UDim2.new(0, 0, 0.4, 0)
+        vu398.BackgroundTransparency = 1
+        vu398.Text = "Idade da conta: " .. pu393.AccountAge .. " dias"
+        vu398.TextColor3 = vu391
+        vu398.TextStrokeTransparency = 0
+        vu398.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+        vu398.TextScaled = true
+        vu398.Font = Enum.Font.Code
+        vu398.Parent = v395
+        local vu399 = Instance.new("TextLabel")
+        vu399.Size = UDim2.new(1, 0, 0.2, 0)
+        vu399.Position = UDim2.new(0, 0, 0.6, 0)
+        vu399.BackgroundTransparency = 1
+        vu399.Text = "Vida: " .. math.floor(pu393.Character.Humanoid.Health)
+        vu399.TextColor3 = vu391
+        vu399.TextStrokeTransparency = 0
+        vu399.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+        vu399.TextScaled = true
+        vu399.Font = Enum.Font.Code
+        vu399.Parent = v395
+        local vu400 = Instance.new("TextLabel")
+        vu400.Size = UDim2.new(1, 0, 0.2, 0)
+        vu400.Position = UDim2.new(0, 0, 0.8, 0)
+        vu400.BackgroundTransparency = 1
+        vu400.Text = "Sentado: N\195\163o"
+        vu400.TextColor3 = vu391
+        vu400.TextStrokeTransparency = 0
+        vu400.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+        vu400.TextScaled = true
+        vu400.Font = Enum.Font.Code
+        vu400.Parent = v395
+        task.spawn(function()
+            while vu390 and pu393.Character and pu393.Character:FindFirstChild("HumanoidRootPart") do
+                local v401 = (pu393.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                vu397.Text = string.format("Dist\195\162ncia: %.2f", v401)
+                vu399.Text = "Vida: " .. math.floor(pu393.Character.Humanoid.Health)
+                vu400.Text = pu393.Character.Humanoid.Sit == true and "Sentado: Sim" or "Sentado: N\195\163o"
+                vu394.FillColor = vu391
+                vu396.TextColor3 = vu391
+                vu397.TextColor3 = vu391
+                vu398.TextColor3 = vu391
+                vu399.TextColor3 = vu391
+                vu400.TextColor3 = vu391
+                task.wait(0.1)
+            end
+        end)
+    end
+end
+local function vu414(p403)
+    vu390 = p403
+    if vu390 then
+        local v404, v405, v406 = pairs(game.Players:GetPlayers())
+        while true do
+            local v407
+            v406, v407 = v404(v405, v406)
+            if v406 == nil then
+                break
+            end
+            if v407 ~= game.Players.LocalPlayer and not v407.Character:FindFirstChild("ESP_Info") then
+                vu402(v407)
+            end
+        end
+        game.Players.PlayerAdded:Connect(function(pu408)
+            if vu390 then
+                pu408.CharacterAdded:Connect(function()
+                    vu402(pu408)
+                end)
+            end
+        end)
+        game.Players.PlayerRemoving:Connect(function(p409)
+            if p409.Character then
+                if p409.Character:FindFirstChild("ESP_Info") then
+                    p409.Character.ESP_Info:Destroy()
+                end
+                if p409.Character:FindFirstChild("ESP_Highlight") then
+                    p409.Character.ESP_Highlight:Destroy()
+                end
+            end
+        end)
+    else
+        local v410, v411, v412 = pairs(game.Players:GetPlayers())
+        while true do
+            local v413
+            v412, v413 = v410(v411, v412)
+            if v412 == nil then
+                break
+            end
+            if v413.Character then
+                if v413.Character:FindFirstChild("ESP_Info") then
+                    v413.Character.ESP_Info:Destroy()
+                end
+                if v413.Character:FindFirstChild("ESP_Highlight") then
+                    v413.Character.ESP_Highlight:Destroy()
+                end
+            end
+        end
+    end
+end
+local function vu416(p415)
+    vu391 = p415
+    vu392 = false
+end
+local function vu418()
+    vu392 = true
+    task.spawn(function()
+        while vu392 do
+            local v417 = tick() * 5
+            vu391 = Color3.fromHSV(v417 % 360 / 360, 1, 1)
+            task.wait(0.1)
+        end
+    end)
+end
+local v419 = vu343
+local v421 = {
+    Name = "ESP",
+    Default = false,
+    Callback = function(p420)
+        vu414(p420)
+    end
+}
+vu343.AddToggle(v419, v421)
+game.Players.PlayerAdded:Connect(function(pu422)
+    pu422.CharacterAdded:Connect(function(_)
+        if vu390 then
+            vu402(pu422)
+        end
+    end)
+end)
+local v423 = vu343
+local v425 = {
+    Name = "Cores do ESP",
+    Options = {
+        "Azul",
+        "Vermelho",
+        "Verde",
+        "Amarelo",
+        "Roxo",
+        "Cinza",
+        "Preto",
+        "Branco",
+        "Laranja",
+        "Rosa",
+        "Marrom",
+        "Rainbow"
+    },
+    Default = {
+        "Branco"
+    },
+    Callback = function(p424)
+        if p424 == "Azul" then
+            vu416(Color3.fromRGB(0, 0, 255))
+        elseif p424 == "Vermelho" then
+            vu416(Color3.fromRGB(255, 0, 0))
+        elseif p424 == "Verde" then
+            vu416(Color3.fromRGB(0, 255, 0))
+        elseif p424 == "Amarelo" then
+            vu416(Color3.fromRGB(255, 255, 0))
+        elseif p424 == "Roxo" then
+            vu416(Color3.fromRGB(128, 0, 128))
+        elseif p424 == "Cinza" then
+            vu416(Color3.fromRGB(128, 128, 128))
+        elseif p424 == "Preto" then
+            vu416(Color3.fromRGB(0, 0, 0))
+        elseif p424 == "Branco" then
+            vu416(Color3.fromRGB(255, 255, 255))
+        elseif p424 == "Laranja" then
+            vu416(Color3.fromRGB(255, 165, 0))
+        elseif p424 == "Rosa" then
+            vu416(Color3.fromRGB(255, 192, 203))
+        elseif p424 == "Marrom" then
+            vu416(Color3.fromRGB(139, 69, 19))
+        elseif p424 == "Rainbow" then
+            vu418()
+        end
+    end
+}
+vu343.AddDropdown(v423, v425)
+local v426 = v7:MakeTab({
+    "Scripts",
+    "rbxassetid://10709806277"
+})
+v426:AddSection({
+    "Scripts"
+})
+v426:AddButton({
+    Name = "Infinite Yield",
+    Description = "Universal",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source", true))()
+    end
+})
+v426:AddButton({
+    Name = "Roships",
+    Description = "Universal",
+    Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-rochips-universal-18294"))()
+    end
+})
+v426:AddButton({
+    Name = "Sander X",
+    Description = "Somente para Brookhaven",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/kigredns/SanderXV4.2.2/refs/heads/main/New.lua"))()
+    end
+})
+v426:AddButton({
+    Name = "System Broock",
+    Description = "Universal",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/H20CalibreYT/SystemBroken/main/script"))()
+    end
+})
+v426:AddButton({
+    Name = "Ant Lag V2",
+    Description = "Universal",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/ureZEHue"))()
+    end
+})
+v426:AddButton({
+    Name = " Fly Gui",
+    Description = "Universal",
+    Callback = function()
+        loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-Fly-v3-7412"))()
+    end
+})

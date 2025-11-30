@@ -1,0 +1,548 @@
+-- ts file was generated at discord.gg/25ms
+
+
+redzLibName = "rael hub universal"
+local vu1 = loadstring(game:HttpGet("https://raw.githubusercontent.com/raelhubfunctions/Rael-hub-libary/refs/heads/main/Source.lua"))()
+local vu2 = loadstring(game:HttpGet("https://raw.githubusercontent.com/raelhubfunctions/Rael-Hub-functions/refs/heads/main/Rael%20functions/script.lua"))()
+local v3 = vu1
+local v4 = vu1.MakeWindow(v3, {
+    "Rael Hub | Universal script",
+    "by laelmano24",
+    ""
+})
+local v5 = v4.AddMinimizeButton
+local v6 = {}
+local v7 = {}
+local v8 = vu1
+v7.Image = vu1.GetIcon(v8, "rbxassetid://107050233461374")
+v7.Size = UDim2.fromOffset(60, 60)
+v7.BackgroundTransparency = 0
+v6.Button = v7
+v6.Corner = {
+    CornerRadius = UDim.new(0, 6)
+}
+v5(v4, v6)
+local vu9 = getgenv()
+local v10 = game:GetService("RunService")
+local v11 = game:GetService("UserInputService")
+local vu12 = game:GetService("TweenService")
+local _ = game:GetService("Players").LocalPlayer
+local v13 = v4:MakeTab({
+    "Support",
+    "game"
+})
+local v14 = v4:MakeTab({
+    "Scripts",
+    "paper"
+})
+local v15 = v4:MakeTab({
+    "LocalPlayer",
+    "user"
+})
+local v16 = v4:MakeTab({
+    "Teleports",
+    "user"
+})
+local v17 = v4:MakeTab({
+    "Esp",
+    "eye"
+})
+local v18 = v4:MakeTab({
+    "Cr\195\169ditos",
+    "star"
+})
+v13:AddParagraph({
+    Title = "The mimic",
+    Content = ""
+})
+v13:AddParagraph({
+    Title = "Samas Revenge",
+    Content = ""
+})
+v13:AddParagraph({
+    Title = "Doors",
+    Content = ""
+})
+v13:AddParagraph({
+    Title = "Meme Sea",
+    Content = ""
+})
+v13:AddParagraph({
+    Title = "Fisch",
+    Content = ""
+})
+v13:AddParagraph({
+    Title = "Funky Friday",
+    Content = ""
+})
+v13:AddParagraph({
+    Title = "Dandy\'s world",
+    Content = ""
+})
+v13:AddParagraph({
+    Title = "Brookhaven",
+    Content = ""
+})
+v13:AddParagraph({
+    Title = "Evade",
+    Content = ""
+})
+v14:AddSection({
+    "Scripts"
+})
+v14:AddButton({
+    "Dex",
+    function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/raelhubfunctions/Save-scripts/refs/heads/main/DexMobile.lua"))()
+    end
+})
+v14:AddButton({
+    "Car fly (mobile)",
+    function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/raelhubfunctions/Save-scripts/refs/heads/main/CarMobile.lua"))()
+    end
+})
+v14:AddButton({
+    "Infinite yield",
+    function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    end
+})
+v15:AddSection({
+    "Spectate Players"
+})
+local vu19 = v15:AddDropdown({
+    Name = "Players List:",
+    Description = "",
+    Options = {},
+    Default = "...",
+    Flag = "SpectatePlayer",
+    Callback = function(_)
+    end
+})
+function updateplayersspectate()
+    local v20 = game.Players
+    local v21, v22, v23 = ipairs(v20:GetPlayers())
+    local v24 = {}
+    while true do
+        local v25
+        v23, v25 = v21(v22, v23)
+        if v23 == nil then
+            break
+        end
+        if v25.Name ~= v20.LocalPlayer.Name then
+            table.insert(v24, v25.Name)
+        end
+    end
+    vu19:Set(v24)
+end
+updateplayersspectate()
+v15:AddButton({
+    "Update the list",
+    function()
+        updateplayersspectate()
+    end
+})
+local v28 = {
+    Name = "Active spectate",
+    Description = "",
+    Flag = "SpectatePlayerToggle",
+    Default = false,
+    Callback = function(p26)
+        local v27 = vu1.Flags.SpectatePlayer
+        vu2.SpectatePlayer(p26, v27)
+    end
+}
+_G.ToggleSpectatePlayer = v15:AddToggle(v28)
+v15:AddSection({
+    "Fly"
+})
+v15:AddDropdown({
+    Name = "Mode",
+    Description = "",
+    Options = {
+        "fly version 1",
+        "fly version 2"
+    },
+    Default = "fly version 1",
+    Flag = "flyMode",
+    Callback = function(_)
+    end
+})
+v15:AddSlider({
+    Name = "Fly speed",
+    Min = 1,
+    Max = 50,
+    Default = 5,
+    Callback = function(p29)
+        vu9.flyModeSpeed = p29
+    end
+})
+local vu30 = false
+vu9.toggleFly = v15:AddToggle({
+    Name = "Fly (You can press F to use fly)",
+    Callback = function(p31)
+        local v32 = vu1.Flags.flyMode
+        vu30 = p31
+        if v32 == "fly version 1" then
+            vu2.fly(p31, vu9.flyModeSpeed)
+        elseif v32 == "fly version 2" then
+            vu2.flyV2(p31, vu9.flyModeSpeed)
+        end
+    end
+})
+if shared.RaelInputConnects then
+    shared.RaelInputConnects:Disconnect()
+end
+shared.RaelInputConnects = v11.InputBegan:Connect(function(p33, p34)
+    if not p34 then
+        if p33.KeyCode == Enum.KeyCode.F and vu9.toggleFly then
+            task.wait(0.2)
+            vu9.toggleFly:Set(not vu30)
+        end
+    end
+end)
+v15:AddSection({
+    "Modify character speed"
+})
+v15:AddSlider({
+    Name = "Speed",
+    Min = 0,
+    Max = 1000,
+    Default = 16,
+    Callback = function(p35)
+        vu9.speedPlayerValue = p35
+    end
+})
+v15:AddToggle({
+    Name = "Enable speed",
+    Description = "",
+    Flag = "Speed Player",
+    Default = false,
+    Callback = function(p36)
+        vu9.RaelHubSpeedToggle = p36
+        task.spawn(function()
+            while vu9.RaelHubSpeedToggle do
+                if shared.Character and shared.Character:FindFirstChild("Humanoid") then
+                    shared.Character.Humanoid.WalkSpeed = vu9.speedPlayerValue
+                    task.wait()
+                end
+            end
+            local v37 = not vu9.RaelHubSpeedToggle and shared.Character:FindFirstChild("Humanoid")
+            if v37 then
+                v37.WalkSpeed = 16
+            end
+        end)
+    end
+})
+v15:AddSection({
+    "Modify the character\'s jumping power"
+})
+v15:AddSlider({
+    Name = "Power",
+    Min = 1,
+    Max = 1000,
+    Default = 50,
+    Flag = "SlideJump",
+    Callback = function(p38)
+        vu9.jumpPlayerValue = p38
+    end
+})
+v15:AddToggle({
+    Name = "Enable jump power",
+    Description = "",
+    Flag = "Enable JumpPower",
+    Default = false,
+    Callback = function(p39)
+        vu9.RaelHubJumpToggle = p39
+        task.spawn(function()
+            while vu9.RaelHubJumpToggle do
+                local v40 = shared.Character
+                if v40 then
+                    v40 = shared.Character:FindFirstChild("Humanoid")
+                end
+                if vu9.jumpPlayerValue or v40 then
+                    v40.JumpPower = vu9.jumpPlayerValue
+                    task.wait()
+                end
+            end
+            if not vu9.RaelHubJumpToggle then
+                local v41 = shared.Character
+                if v41 then
+                    v41 = shared.Character:FindFirstChild("Humanoid")
+                end
+                if not v41 then
+                    return
+                end
+                v41.JumpPower = 50
+            end
+        end)
+    end
+})
+v15:AddSection({
+    "Pass through objects"
+})
+v15:AddToggle({
+    Name = "Noclip",
+    Description = "",
+    Flag = "No clip",
+    Default = false,
+    Callback = function(p42)
+        vu2.NoClip(p42)
+    end
+})
+v15:AddSection({
+    "Light up your map"
+})
+v15:AddToggle({
+    Name = "Fullbright",
+    Description = "",
+    Flag = "toggleFullbright",
+    Default = false,
+    Callback = function(p43)
+        vu2.FullBright(p43)
+    end
+})
+v16:AddSection({
+    "Teleport server"
+})
+v16:AddTextBox({
+    Name = "Server id",
+    Description = "",
+    PlaceholderText = "",
+    Flag = "ServerID",
+    Default = false,
+    Callback = function(p44)
+        _G.ServerIdValue = p44
+    end
+})
+v16:AddButton({
+    "Teleportar the server id",
+    function()
+        local v45 = game:GetService("TeleportService")
+        local v46 = game.PlaceId
+        local v47 = _G.ServerIdValue
+        if v47 and v47 ~= "" then
+            v45:TeleportToPlaceInstance(v46, v47, game.Players.LocalPlayer)
+        else
+            warn("Server ID is not set. Please enter a valid Server ID.")
+        end
+    end
+})
+v16:AddButton({
+    "Get the server id",
+    function()
+        setclipboard(game.JobId)
+    end
+})
+local vu48 = ""
+v16:AddSection({
+    "Teleport for players"
+})
+local vu50 = v16:AddDropdown({
+    Name = "Players List:",
+    Description = "",
+    Options = {},
+    Default = "...",
+    Flag = "Teleporters players",
+    Callback = function(p49)
+        vu48 = p49
+    end
+})
+function updateplayersTeleport()
+    local v51 = game.Players
+    local v52, v53, v54 = ipairs(v51:GetPlayers())
+    local v55 = {}
+    while true do
+        local v56
+        v54, v56 = v52(v53, v54)
+        if v54 == nil then
+            break
+        end
+        if v56.Name ~= v51.LocalPlayer.Name then
+            table.insert(v55, v56.Name)
+        end
+    end
+    vu50:Set(v55)
+end
+updateplayersTeleport()
+game.Players.PlayerAdded:Connect(updateplayersTeleport)
+game.Players.PlayerRemoving:Connect(updateplayersTeleport)
+v16:AddButton({
+    "Tp player",
+    function()
+        local v57 = vu48
+        local v58 = game.Players:FindFirstChild(v57)
+        if v58 and v58.Character and v58.Character:FindFirstChild("HumanoidRootPart") then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v58.Character.HumanoidRootPart.CFrame
+        end
+    end
+})
+v16:AddSection({
+    Name = "Copy player position"
+})
+vu9.playerPositionValue = "Player position"
+local vu59 = v16:AddParagraph({
+    Title = tostring(vu9.playerPositionValue),
+    Content = ""
+})
+v16:AddButton({
+    Name = "Get player position",
+    Callback = function()
+        local v60 = shared.Character
+        if v60 then
+            v60 = shared.Character:FindFirstChild("HumanoidRootPart")
+        end
+        if v60 then
+            vu9.playerPositionValue = v60.Position
+            vu59:SetTitle(tostring(vu9.playerPositionValue.X) .. ", " .. tostring(vu9.playerPositionValue.Y) .. ", " .. tostring(vu9.playerPositionValue.Z))
+        end
+    end
+})
+v16:AddSection({
+    Name = "Teleport Normal"
+})
+v16:AddButton({
+    Name = "Teleport to position",
+    Callback = function()
+        local v61 = shared.Character
+        if v61 then
+            v61 = shared.Character:FindFirstChild("HumanoidRootPart")
+        end
+        if v61 then
+            v61.CFrame = CFrame.new(vu9.playerPositionValue)
+        end
+    end
+})
+v16:AddButton({
+    Name = "Copy teleport code",
+    Callback = function()
+        if vu9.playerPositionValue and vu9.setclipboard then
+            local v62 = vu9.playerPositionValue
+            local v63 = "game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(" .. v62.X .. ", " .. v62.Y .. ", " .. v62.Z .. ")"
+            setclipboard(v63)
+        end
+    end
+})
+v16:AddSection({
+    Name = "Teleport Tween"
+})
+v16:AddSlider({
+    Name = "Time tween",
+    Min = 0,
+    Max = 50,
+    Default = 2
+}):Callback(function(p64)
+    vu9.tweenTimeValue = p64
+end)
+v16:AddButton({
+    Name = "Teleport tween to position",
+    Callback = function()
+        local v65 = shared.Character
+        if v65 then
+            v65 = shared.Character:FindFirstChild("HumanoidRootPart")
+        end
+        if vu9.playerPositionValue and v65 then
+            vu12:Create(v65, TweenInfo.new(vu9.tweenTimeValue, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+                CFrame = CFrame.new(vu9.playerPositionValue)
+            }):Play()
+        end
+    end
+})
+v16:AddButton({
+    Name = "Copy tween teleport code",
+    Callback = function()
+        if vu9.playerPositionValue and vu9.setclipboard then
+            local v66 = vu9.playerPositionValue
+            local v67 = "local TweenService = game:GetService(\"TweenService\")\r\nlocal player = game.Players.LocalPlayer\r\nlocal character = player.Character or player.CharacterAdded:Wait()\r\nlocal humanoidRootPart = character:WaitForChild(\"HumanoidRootPart\")\r\n\r\nlocal tweenInfo = TweenInfo.new(" .. vu9.tweenTimeValue .. ", Enum.EasingStyle.Sine, Enum.EasingDirection.Out)\r\nlocal tween = TweenService:Create(humanoidRootPart, tweenInfo, { CFrame = CFrame.new(" .. v66.X .. ", " .. v66.Y .. ", " .. v66.Z .. ") })\r\ntween:Play()\r\n"
+            setclipboard(v67)
+        end
+    end
+})
+v17:AddSection({
+    Name = "Esp player"
+})
+v17:AddToggle({
+    Name = "Esp players",
+    Description = "",
+    Flag = "EspPlayers",
+    Default = false,
+    Callback = function(p68)
+        vu2.ESPPlayers(p68, "ShowDistance")
+    end
+})
+v17:AddSection({
+    Name = "Create esp"
+})
+vu9.RaelHubEspCreateObject = "Object part"
+vu9.RaelHubEspColor = Color3.fromRGB(230, 230, 230)
+local vu69 = v17:AddParagraph({
+    Title = tostring(vu9.RaelHubEspCreateObject),
+    Content = ""
+})
+v10.Heartbeat:Connect(function()
+    vu69:SetTitle(tostring(vu9.RaelHubEspCreateObject))
+end)
+v17:AddButton({
+    Name = "Get variable for esp",
+    Callback = function()
+        if vu9.setclipboard then
+            setclipboard("getgenv().RaelHubEspCreateObject")
+        end
+    end
+})
+v17:AddButton({
+    Name = "Get variable for esp color",
+    Callback = function()
+        if vu9.setclipboard then
+            setclipboard("getgenv().RaelHubEspColor = Color3.fromRGB(255, 255, 255)")
+        end
+    end
+})
+v17:AddButton({
+    Name = "Create esp",
+    Callback = function()
+        local v70 = vu9.RaelHubEspCreateObject
+        if v70 then
+            v70 = vu9.RaelHubEspCreateObject:FindFirstChild("raelhubhighlight")
+        end
+        local v71 = vu9.RaelHubEspCreateObject
+        if v71 then
+            v71 = vu9.RaelHubEspCreateObject:FindFirstChild("raelhubicon")
+        end
+        if not (v70 and v71) then
+            vu2.CreateEspDistance(vu9.RaelHubEspCreateObject, vu9.RaelHubEspColor, vu9.RaelHubEspCreateObject.Name, true)
+        end
+    end
+})
+v17:AddButton({
+    Name = "Remove esp",
+    Callback = function()
+        vu2.DisableEsp(vu9.RaelHubEspCreateObject)
+    end
+})
+v17:AddButton({
+    Name = "Copy esp code",
+    Callback = function()
+        local v75 = (function(p72)
+            local v73 = p72.Name
+            local v74 = p72.Parent
+            while v74 and v74 ~= game do
+                v73 = v74.Name .. "." .. v73
+                v74 = v74.Parent
+            end
+            return v73
+        end)(vu9.RaelHubEspCreateObject)
+        local v76 = vu9.RaelHubEspColor or Color3.fromRGB(255, 255, 255)
+        if vu9.setclipboard and v75 then
+            local v77 = "local RaelHubFunction = loadstring(game:HttpGet(\"https://raw.githubusercontent.com/raelhubfunctions/Rael-Hub-functions/refs/heads/main/Rael%20functions/script.lua\"))()\r\n\r\nlocal Object = " .. v75 .. "\r\n\r\nlocal Color = Color3.fromRGB(" .. math.floor(v76.R * 255) .. ", " .. math.floor(v76.G * 255) .. ", " .. math.floor(v76.B * 255) .. ")\r\n\r\nRaelHubFunction.CreateEspDistance(Object, Color, Object.Name, true)\r\n"
+            setclipboard(v77)
+        end
+    end
+})
+v18:AddDiscordInvite({
+    Name = "Rael Hub",
+    Description = "Join my YouTube channel and Discord for new updates.",
+    Logo = "rbxassetid://107050233461374",
+    Invite = "Laelmano24"
+})
